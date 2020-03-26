@@ -1,0 +1,9 @@
+sudo: required # anytime we're making use of docker, we need super user perms
+services:
+  - docker # needs to have docker CLI installed. travis then installs it
+
+before_install:
+  - docker build -t tantansouza/docker-react -f Dockerfile.dev .
+
+script:
+  - docker run -e CI=true tantansouza/docker-react npm run test -- --coverage
